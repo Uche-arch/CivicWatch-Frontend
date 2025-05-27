@@ -1,0 +1,45 @@
+<!-- securityTalk.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/securityTalks.css" />
+
+    <title>Security Talks</title>
+  </head>
+  <body>
+    <section id="securityTalks">
+      <h2>Security Talks</h2>
+
+      <!-- Write Post Button (Only visible when logged in) -->
+      <button id="writePostBtn" class="hidden">Write Post</button>
+
+      <!-- Form to Write Post (Toggled on) -->
+      <div id="postForm" class="hidden">
+        <textarea
+          id="postContent"
+          placeholder="Write your security tip here..."
+        ></textarea>
+        <button id="submitPost">Post</button>
+      </div>
+
+      <!-- List of Posts -->
+      <div id="postsList">
+        <div class="post">
+          <p>Loading ....</p>
+          <strong>- -</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Posting Modal -->
+    <div id="postingModal" class="modal hidden">
+      <div class="modal-content">
+        <p>Posting your message, please wait...</p>
+      </div>
+    </div>
+
+    <script src="./js/securityTalks.js"></script>
+  </body>
+</html>

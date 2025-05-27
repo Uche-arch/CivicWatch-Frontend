@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap");
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Use Poppins for headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+#yourPosts {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+#postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.post {
+  background-color: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-left: 5px solid #007bff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  /* position: relative; */
+  transition: all 0.2s ease;
+}
+
+.post:hover {
+  /* transform: scale(1.01); */
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.1);
+}
+
+.post p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #444;
+}
+
+.post strong {
+  color: #007bff;
+  font-size: 0.95rem;
+}
+
+.post button {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.post button:hover {
+  background-color: #e60000;
+}
+
+/* Responsive adjustment */
+@media screen and (max-width: 600px) {
+  #yourPosts {
+    padding: 1rem;
+  }
+
+  .post {
+    padding: 1rem;
+  }
+
+  .post button {
+    top: 0.8rem;
+    right: 0.8rem;
+  }
+}

@@ -1,0 +1,58 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crime Map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>CivicWatch</h1>
+      <nav>
+        <!-- Login and Sign Up buttons in your navigation or header -->
+        <button id="loginBtn"><a href="login.html">Login</a></button>
+        <button id="signupBtn"><a href="signup.html">Sign Up</a></button>
+
+        
+        <div id="userMenu" class="user-menu">
+          <button id="userBtn" class="btn">Menu ▼</button>
+          <div id="dropdown" class="dropdown hidden">
+            <a href="securityTalks.html">Security Talks</a>
+            <a href="your-posts.html">Your Posts</a>
+            <button id="logoutBtn">Logout</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div id="map"></div>
+    </main>
+
+    <!-- Instruction Modal For Users-->
+    <div id="instructionModal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Welcome to CivicWatch 👮‍♂️</h3>
+        <p>
+          CivicWatch is your community’s safety companion. Track reported crime
+          hotspots, share security tips, and stay informed about local
+          incidents. Together, we can build a safer, more aware society.
+        </p>
+
+        <p><b>To view hotspots, click on the map</b></p>
+        <button id="closeInstructionModal">Got it!</button>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/index.js"></script>
+    <script src="./js/instructionModal.js"></script>
+  </body>
+</html>
