@@ -10,16 +10,13 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     return;
   }
 
-  const response = await fetch(
-    "https://civicwatch-backend.onrender.com/api/auth/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password }),
-    }
-  );
+  const response = await fetch("http://localhost:5000/api/auth/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, email, password }),
+  });
 
   const data = await response.json();
 
@@ -30,3 +27,13 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     alert(data.msg); // Show error message from the server
   }
 });
+
+const togglePassword = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("signupPassword");
+
+togglePassword.addEventListener("click", () => {
+  const isPassword = passwordInput.type === "password";
+  passwordInput.type = isPassword ? "text" : "password";
+  togglePassword.textContent = isPassword ? "🙈" : "👁️";
+});
+

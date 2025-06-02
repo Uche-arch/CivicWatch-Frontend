@@ -9,14 +9,11 @@ async function loadUserPosts() {
     return;
   }
 
-  const res = await fetch(
-    "https://civicwatch-backend.onrender.com/api/posts/my-posts",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await fetch("http://localhost:5000/api/posts/my-posts", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   if (res.ok) {
     const posts = await res.json();
@@ -44,15 +41,12 @@ async function loadUserPosts() {
 async function deletePost(postId) {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(
-    `https://civicwatch-backend.onrender.com/api/posts/${postId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await fetch(`http://localhost:5000/api/posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const data = await res.json();
   if (res.ok) {
