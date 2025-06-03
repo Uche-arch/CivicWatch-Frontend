@@ -12,11 +12,14 @@ form.addEventListener("submit", async (e) => {
   const newPassword = document.getElementById("newPassword").value;
 
   try {
-    const res = await fetch("http://localhost:5000/api/auth/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token, newPassword }),
-    });
+    const res = await fetch(
+      "https://civicwatch-backend.onrender.com/api/auth/reset-password",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, newPassword }),
+      }
+    );
 
     const data = await res.json();
 

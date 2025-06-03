@@ -19,14 +19,17 @@ submitPost.onclick = async () => {
   postingModal.classList.remove("hidden");
 
   try {
-    const res = await fetch("http://localhost:5000/api/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ content }),
-    });
+    const res = await fetch(
+      "https://civicwatch-backend.onrender.com/api/posts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ content }),
+      }
+    );
 
     const data = await res.json();
 
@@ -47,7 +50,7 @@ submitPost.onclick = async () => {
 
 // Function to load posts
 async function loadPosts() {
-  const res = await fetch("http://localhost:5000/api/posts");
+  const res = await fetch("https://civicwatch-backend.onrender.com/api/posts");
   const posts = await res.json();
 
   postsList.innerHTML = "";

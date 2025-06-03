@@ -9,13 +9,16 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     return;
   }
 
-  const response = await fetch("http://localhost:5000/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
+  const response = await fetch(
+    "https://civicwatch-backend.onrender.com/api/auth/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    }
+  );
 
   const data = await response.json();
 
@@ -52,11 +55,14 @@ document.getElementById('forgotForm').addEventListener('submit', async (e) => {
   const email = document.getElementById('forgotEmail').value;
 
   try {
-    const res = await fetch('http://localhost:5000/api/auth/forgot-password', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, email }),
-    });
+    const res = await fetch(
+      "https://civicwatch-backend.onrender.com/api/auth/forgot-password",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email }),
+      }
+    );
 
     const data = await res.json();
     const msg = document.getElementById('forgotMessage');
