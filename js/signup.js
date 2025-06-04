@@ -1,20 +1,93 @@
 const signupForm = document.getElementById("signupForm");
 const signupError = document.getElementById("signupError");
+const signupBtn = document.getElementById("signupBtn");
+
+const usernameInput = document.getElementById("signupUsername");
+const emailInput = document.getElementById("signupEmail");
+const passwordInput = document.getElementById("signupPassword");
+const repeatPasswordInput = document.getElementById("signupRepeatPassword");
+const togglePassword = document.getElementById("togglePassword");
+
+const passwordError = document.getElementById("passwordError");
+const repeatPasswordError = document.getElementById("repeatPasswordError");
+
+// Password validation function
+function isPasswordStrong(password) {
+  // Minimum 6 characters & contains at least one special char from . , - =
+  return password.length >= 6 && /[.,\-=\ ]/.test(password);
+}
+
+function validatePassword() {
+  const password = passwordInput.value;
+
+  if (!isPasswordStrong(password)) {
+    passwordError.textContent =
+      "Password must be at least 6 characters and contain one of these: . , - =";
+    passwordError.style.display = "block";
+    return false;
+  } else {
+    passwordError.style.display = "none";
+    return true;
+  }
+}
+
+function validateRepeatPassword() {
+  const password = passwordInput.value;
+  const repeatPassword = repeatPasswordInput.value;
+
+  if (repeatPassword && password !== repeatPassword) {
+    repeatPasswordError.textContent = "Passwords do not match.";
+    repeatPasswordError.style.display = "block";
+    return false;
+  } else {
+    repeatPasswordError.style.display = "none";
+    return true;
+  }
+}
+
+function validateForm() {
+  const username = usernameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const repeatPassword = repeatPasswordInput.value;
+
+  // Validate required fields
+  if (!username || !email || !password || !repeatPassword) {
+    signupBtn.disabled = true;
+    return;
+  }
+
+  // Run password validations separately
+  const passwordValid = validatePassword();
+  const repeatPasswordValid = validateRepeatPassword();
+
+  // Enable button only if all valid
+  signupBtn.disabled = !(passwordValid && repeatPasswordValid);
+}
+
+// Event listeners
+usernameInput.addEventListener("input", validateForm);
+emailInput.addEventListener("input", validateForm);
+
+passwordInput.addEventListener("input", () => {
+  validatePassword();
+  validateRepeatPassword(); // also check repeat password on password change
+  validateForm();
+});
+
+repeatPasswordInput.addEventListener("input", () => {
+  validateRepeatPassword();
+  validateForm();
+});
 
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  signupError.style.display = "none"; // hide error message initially
+  signupError.style.display = "none";
 
-  const username = document.getElementById("signupUsername").value.trim();
-  const email = document.getElementById("signupEmail").value.trim();
-  const password = document.getElementById("signupPassword").value.trim();
-
-  if (!username || !email || !password) {
-    signupError.textContent = "Please fill in all fields.";
-    signupError.style.display = "block";
-    return;
-  }
+  const username = usernameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
 
   try {
     const response = await fetch(
@@ -49,11 +122,16 @@ signupForm.addEventListener("submit", async (e) => {
   }
 });
 
-const togglePassword = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("signupPassword");
-
 togglePassword.addEventListener("click", () => {
   const isPassword = passwordInput.type === "password";
   passwordInput.type = isPassword ? "text" : "password";
   togglePassword.textContent = isPassword ? "🙈" : "👁️";
+});
+
+const toggleRepeatPassword = document.getElementById("toggleRepeatPassword");
+
+toggleRepeatPassword.addEventListener("click", () => {
+  const isPassword = repeatPasswordInput.type === "password";
+  repeatPasswordInput.type = isPassword ? "text" : "password";
+  toggleRepeatPassword.textContent = isPassword ? "🙈" : "👁️";
 });

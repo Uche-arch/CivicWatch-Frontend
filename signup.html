@@ -1,4 +1,3 @@
-<!-- frontend/signup.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,12 +18,7 @@
     <form id="signupForm">
       <input type="text" id="signupUsername" placeholder="Username" required />
       <input type="email" id="signupEmail" placeholder="Email" required />
-      <!-- <input
-        type="password"
-        id="signupPassword"
-        placeholder="Password"
-        required
-      /> -->
+
       <div class="password-wrapper">
         <input
           type="password"
@@ -34,8 +28,30 @@
         />
         <span id="togglePassword" class="toggle-icon">👁️</span>
       </div>
+      <!-- Add this line: -->
+      <p
+        id="passwordError"
+        style="color: red; margin-top: 4px; display: none"
+      ></p>
 
-      <button type="submit">Sign Up</button>
+      <div class="password-wrapper">
+        <input
+          type="password"
+          id="signupRepeatPassword"
+          placeholder="Repeat Password"
+          required
+        />
+        <span id="toggleRepeatPassword" class="toggle-icon">👁️</span>
+      </div>
+      
+      <!-- Repeat password error message -->
+      <p
+        id="repeatPasswordError"
+        style="color: red; margin-top: 4px; display: none"
+      ></p>
+
+      <button type="submit" id="signupBtn" disabled title="Fill out all fields to enable">Sign Up</button>
+
       <!-- Error message placeholder -->
       <p
         id="signupError"
