@@ -69,8 +69,12 @@ async function deletePost(postId) {
 
   const data = await res.json();
   if (res.ok) {
-    alert("Post deleted successfully");
-    loadUserPosts(); // Reload the list of posts
+    const modal = document.getElementById("successModal");
+    modal.style.display = "block";
+    setTimeout(() => {
+      modal.style.display = "none";
+      loadUserPosts(); // Reload the list of posts
+    }, 3000);
   } else {
     alert(data.msg);
   }
