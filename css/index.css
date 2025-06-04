@@ -128,7 +128,7 @@ nav button:hover {
 }
 
 #map {
-  height: 90vh;
+  height: 87vh;
 }
 
 /* Modal Overlay */
@@ -180,6 +180,10 @@ nav button:hover {
 /* Utility */
 .hidden {
   display: none !important;
+}
+
+footer {
+  text-align: center;
 }
 
 /* Responsive adjustments */
