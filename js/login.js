@@ -1,36 +1,50 @@
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Prevent form from submitting the default way
+const loginForm = document.getElementById("loginForm");
+const loginError = document.getElementById("loginError");
 
-  const username = document.getElementById("loginUsername").value;
-  const password = document.getElementById("loginPassword").value;
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  loginError.style.display = "none"; // hide error message initially
+
+  const username = document.getElementById("loginUsername").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
 
   if (!username || !password) {
-    alert("Please fill in both fields.");
+    loginError.textContent = "Please fill in both fields.";
+    loginError.style.display = "block";
     return;
   }
 
-  const response = await fetch(
-    "https://civicwatch-backend.onrender.com/api/auth/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
+  try {
+    const response = await fetch(
+      "https://civicwatch-backend.onrender.com/api/auth/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Clear any error message
+      loginError.style.display = "none";
+
+      // Store JWT token and username
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("username", data.username);
+
+      // Redirect to home page
+      window.location.href = "index.html";
+    } else {
+      loginError.textContent = "Invalid credentials";
+      loginError.style.display = "block";
     }
-  );
-
-  const data = await response.json();
-
-  if (response.ok) {
-    // Store the JWT token and username in localStorage
-    localStorage.setItem("token", data.token); 
-    localStorage.setItem("username", data.username); 
-
-    // Redirect to the home page after successful login
-    window.location.href = "index.html";
-  } else {
-    alert(data.msg); // Show error message from the server
+  } catch (error) {
+    loginError.textContent = "Something went wrong. Please try again.";
+    loginError.style.display = "block";
+    console.error(error);
   }
 });
 
@@ -43,16 +57,14 @@ togglePassword.addEventListener("click", () => {
   togglePassword.textContent = isPassword ? "🙈" : "👁️";
 });
 
-
 // js/login.js
 
-
 // Forgot Password Submission
-document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+document.getElementById("forgotForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const username = document.getElementById('forgotUsername').value;
-  const email = document.getElementById('forgotEmail').value;
+  const username = document.getElementById("forgotUsername").value;
+  const email = document.getElementById("forgotEmail").value;
 
   try {
     const res = await fetch(
@@ -65,8 +77,8 @@ document.getElementById('forgotForm').addEventListener('submit', async (e) => {
     );
 
     const data = await res.json();
-    const msg = document.getElementById('forgotMessage');
-    msg.style.color = res.ok ? 'green' : 'red';
+    const msg = document.getElementById("forgotMessage");
+    msg.style.color = res.ok ? "green" : "red";
     msg.textContent = data.message;
   } catch (err) {
     console.error(err);

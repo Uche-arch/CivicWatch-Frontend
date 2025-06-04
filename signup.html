@@ -8,6 +8,13 @@
     <title>CivicWatch | Sign Up</title>
   </head>
   <body>
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <p>✅ Signup successful! You can now log in.</p>
+      </div>
+    </div>
+
     <h2>Sign Up</h2>
     <form id="signupForm">
       <input type="text" id="signupUsername" placeholder="Username" required />
@@ -27,8 +34,13 @@
         />
         <span id="togglePassword" class="toggle-icon">👁️</span>
       </div>
-      
+
       <button type="submit">Sign Up</button>
+      <!-- Error message placeholder -->
+      <p
+        id="signupError"
+        style="color: red; margin-top: 8px; display: none"
+      ></p>
     </form>
 
     <p>Already have an account? <a href="login.html">Login here</a></p>

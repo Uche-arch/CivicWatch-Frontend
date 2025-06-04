@@ -1,33 +1,51 @@
-document.getElementById("signupForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Prevent form from submitting the default way
+const signupForm = document.getElementById("signupForm");
+const signupError = document.getElementById("signupError");
 
-  const username = document.getElementById("signupUsername").value;
-  const email = document.getElementById("signupEmail").value; // Get email value
-  const password = document.getElementById("signupPassword").value;
+signupForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  signupError.style.display = "none"; // hide error message initially
+
+  const username = document.getElementById("signupUsername").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value.trim();
 
   if (!username || !email || !password) {
-    alert("Please fill in all fields.");
+    signupError.textContent = "Please fill in all fields.";
+    signupError.style.display = "block";
     return;
   }
 
-  const response = await fetch(
-    "https://civicwatch-backend.onrender.com/api/auth/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password }),
+  try {
+    const response = await fetch(
+      "https://civicwatch-backend.onrender.com/api/auth/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      signupError.style.display = "none";
+
+      const modal = document.getElementById("successModal");
+      modal.style.display = "block";
+
+      setTimeout(() => {
+        modal.style.display = "none";
+        window.location.href = "login.html";
+      }, 3000);
+    } else {
+      signupError.textContent = data.msg || "Signup failed.";
+      signupError.style.display = "block";
     }
-  );
-
-  const data = await response.json();
-
-  if (response.ok) {
-    alert("Signup successful!");
-    window.location.href = "login.html"; // Redirect to login page after successful signup
-  } else {
-    alert(data.msg); // Show error message from the server
+  } catch (error) {
+    signupError.textContent = "Something went wrong. Please try again.";
+    signupError.style.display = "block";
+    console.error(error);
   }
 });
 
@@ -39,4 +57,3 @@ togglePassword.addEventListener("click", () => {
   passwordInput.type = isPassword ? "text" : "password";
   togglePassword.textContent = isPassword ? "🙈" : "👁️";
 });
-

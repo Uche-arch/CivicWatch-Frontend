@@ -62,14 +62,32 @@ async function loadPosts() {
 
     // Convert line breaks into <br> elements
     const formattedContent = post.content.replace(/\n/g, "<br>");
+    const formattedTime = formatTimeAgo(post.createdAt);
+
 
     postElement.innerHTML = `
+      <small style="opacity: 0.7">${formattedTime}</small>
       <p>${formattedContent}</p>
       <strong>_${post.username}</strong>
     `;
 
     postsList.appendChild(postElement);
   });
+}
+
+function formatTimeAgo(dateString) {
+  const now = new Date();
+  const postDate = new Date(dateString);
+  const secondsAgo = Math.floor((now - postDate) / 1000);
+
+  if (secondsAgo < 60)
+    return `${secondsAgo} second${secondsAgo !== 1 ? "s" : ""} ago`;
+  const minutes = Math.floor(secondsAgo / 60);
+  if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+  const days = Math.floor(hours / 24);
+  return `${days} day${days !== 1 ? "s" : ""} ago`;
 }
 
 // Update UI when page loads

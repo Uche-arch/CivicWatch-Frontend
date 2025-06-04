@@ -9,18 +9,27 @@ async function loadUserPosts() {
     return;
   }
 
-  const res = await fetch(
-    "https://civicwatch-backend.onrender.com/api/posts/my-posts",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  try {
+    const res = await fetch(
+      "https://civicwatch-backend.onrender.com/api/posts/my-posts",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  if (res.ok) {
+    if (!res.ok) {
+      throw new Error("Failed to load your posts.");
+    }
+
     const posts = await res.json();
     postsList.innerHTML = "";
+
+    if (posts.length === 0) {
+      postsList.innerHTML = `<p>No posts to show.</p>`;
+      return;
+    }
 
     posts.forEach((post) => {
       const postElement = document.createElement("div");
@@ -28,16 +37,20 @@ async function loadUserPosts() {
 
       // Convert line breaks into <br> tags
       const formattedContent = post.content.replace(/\n/g, "<br>");
+      const formattedTime = formatTimeAgo(post.createdAt);
 
       postElement.innerHTML = `
           <p><strong>${post.username}</strong>: ${formattedContent}</p>
           <button onclick="deletePost('${post._id}')">Delete</button>
+      <small style="opacity: 0.7">${formattedTime}</small>
+
         `;
 
       postsList.appendChild(postElement);
     });
-  } else {
-    alert("Failed to load your posts.");
+  } catch (error) {
+    postsList.innerHTML = `<p>Failed to load posts. Please try again later.</p>`;
+    console.error(error);
   }
 }
 
@@ -63,5 +76,20 @@ async function deletePost(postId) {
   }
 }
 
-// Update UI when page loads
-window.onload = loadUserPosts();
+function formatTimeAgo(dateString) {
+  const now = new Date();
+  const postDate = new Date(dateString);
+  const secondsAgo = Math.floor((now - postDate) / 1000);
+
+  if (secondsAgo < 60)
+    return `${secondsAgo} second${secondsAgo !== 1 ? "s" : ""} ago`;
+  const minutes = Math.floor(secondsAgo / 60);
+  if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+  const days = Math.floor(hours / 24);
+  return `${days} day${days !== 1 ? "s" : ""} ago`;
+}
+
+// Call loadUserPosts when the page loads
+window.onload = loadUserPosts;
