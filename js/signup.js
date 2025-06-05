@@ -14,11 +14,31 @@ const usernameError = document.getElementById("usernameError");
 
 
 
+// function validateUsername() {
+//   const username = usernameInput.value.trim();
+
+//   if (username.length < 5) {
+//     usernameError.textContent = "Username must be at least 5 characters.";
+//     usernameError.style.display = "block";
+//     return false;
+//   } else {
+//     usernameError.style.display = "none";
+//     return true;
+//   }
+// }
+
 function validateUsername() {
   const username = usernameInput.value.trim();
 
-  if (username.length < 5) {
-    usernameError.textContent = "Username must be at least 5 characters.";
+  const validPattern = /^[a-zA-Z0-9._]{5,20}$/;
+
+  // Check if all characters in the username are the same
+  const allSameChar = /^([a-zA-Z0-9._])\1*$/.test(username);
+
+  const isValid = validPattern.test(username) && !allSameChar;
+
+  if (!isValid) {
+    usernameError.textContent = "5–20 chars; letters, numbers, . _ only";
     usernameError.style.display = "block";
     return false;
   } else {
@@ -26,6 +46,7 @@ function validateUsername() {
     return true;
   }
 }
+
 
 
 
@@ -65,45 +86,68 @@ function validateRepeatPassword() {
   }
 }
 
+// function validateForm() {
+//   const username = usernameInput.value.trim();
+//   const email = emailInput.value.trim();
+//   const password = passwordInput.value;
+//   const repeatPassword = repeatPasswordInput.value;
+
+//   const usernameValid = username.length >= 5;
+//   const passwordValid = isPasswordStrong(password);
+//   const repeatPasswordValid = password === repeatPassword;
+
+//   const allFieldsFilled = username && email && password && repeatPassword;
+
+//   signupBtn.disabled = !(
+//     allFieldsFilled &&
+//     usernameValid &&
+//     passwordValid &&
+//     repeatPasswordValid
+//   );
+// }
+
 function validateForm() {
-  const usernameValid = validateUsername();
+  const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
   const repeatPassword = repeatPasswordInput.value;
 
-  // Validate required fields
-  if (!username || !email || !password || !repeatPassword) {
-    signupBtn.disabled = true;
-    return;
-  }
-
-  // Run password validations separately
+  // Use the validateUsername() function which includes regex check and error display
+  const usernameValid = validateUsername();
   const passwordValid = validatePassword();
   const repeatPasswordValid = validateRepeatPassword();
 
-  // Enable button only if all valid
-  signupBtn.disabled = !(usernameValid && passwordValid && repeatPasswordValid);
+  const allFieldsFilled = username && email && password && repeatPassword;
 
+  signupBtn.disabled = !(
+    allFieldsFilled &&
+    usernameValid &&
+    passwordValid &&
+    repeatPasswordValid
+  );
 }
+
+
 
 // Event listeners
 usernameInput.addEventListener("input", () => {
-  validateUsername();
-  validateForm();
+  validateUsername(); // shows/hides error
+  // validateForm(); // just checks all statuses
 });
 
 emailInput.addEventListener("input", validateForm);
 
 passwordInput.addEventListener("input", () => {
-  validatePassword();
-  validateRepeatPassword(); // also check repeat password on password change
+  validatePassword(); // shows/hides error
+  validateRepeatPassword(); // update repeat password if needed
   validateForm();
 });
 
 repeatPasswordInput.addEventListener("input", () => {
-  validateRepeatPassword();
+  validateRepeatPassword(); // shows/hides error
   validateForm();
 });
+
 
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -113,6 +157,8 @@ signupForm.addEventListener("submit", async (e) => {
   const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
+
+  console.log("Submitting form...");  
 
   try {
     const response = await fetch(
