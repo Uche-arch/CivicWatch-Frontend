@@ -17,6 +17,8 @@
     <h2>Sign Up</h2>
     <form id="signupForm">
       <input type="text" id="signupUsername" placeholder="Username" required />
+      <div id="usernameError" style="color: red; display: none"></div>
+      
       <input type="email" id="signupEmail" placeholder="Email" required />
 
       <div class="password-wrapper">
@@ -43,14 +45,21 @@
         />
         <span id="toggleRepeatPassword" class="toggle-icon">👁️</span>
       </div>
-      
+
       <!-- Repeat password error message -->
       <p
         id="repeatPasswordError"
         style="color: red; margin-top: 4px; display: none"
       ></p>
 
-      <button type="submit" id="signupBtn" disabled title="Fill out all fields to enable">Sign Up</button>
+      <button
+        type="submit"
+        id="signupBtn"
+        disabled
+        title="Fill out all fields to enable"
+      >
+        Sign Up
+      </button>
 
       <!-- Error message placeholder -->
       <p

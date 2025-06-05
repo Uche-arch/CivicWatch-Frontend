@@ -10,11 +10,30 @@ const togglePassword = document.getElementById("togglePassword");
 
 const passwordError = document.getElementById("passwordError");
 const repeatPasswordError = document.getElementById("repeatPasswordError");
+const usernameError = document.getElementById("usernameError");
+
+
+
+function validateUsername() {
+  const username = usernameInput.value.trim();
+
+  if (username.length < 5) {
+    usernameError.textContent = "Username must be at least 5 characters.";
+    usernameError.style.display = "block";
+    return false;
+  } else {
+    usernameError.style.display = "none";
+    return true;
+  }
+}
+
+
 
 // Password validation function
 function isPasswordStrong(password) {
-  // Minimum 6 characters & contains at least one special char from . , - =
-  return password.length >= 6 && /[.,\-=\ ]/.test(password);
+  // Minimum 6 characters & at least one special character
+  // Special characters = anything that is not a letter or number
+  return password.length >= 6 && /[^a-zA-Z0-9]/.test(password);
 }
 
 function validatePassword() {
@@ -22,7 +41,7 @@ function validatePassword() {
 
   if (!isPasswordStrong(password)) {
     passwordError.textContent =
-      "Password must be at least 6 characters and contain one of these: . , - =";
+      "Password must be at least 6 characters and contain at least one special character.";
     passwordError.style.display = "block";
     return false;
   } else {
@@ -30,6 +49,7 @@ function validatePassword() {
     return true;
   }
 }
+
 
 function validateRepeatPassword() {
   const password = passwordInput.value;
@@ -46,7 +66,7 @@ function validateRepeatPassword() {
 }
 
 function validateForm() {
-  const username = usernameInput.value.trim();
+  const usernameValid = validateUsername();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
   const repeatPassword = repeatPasswordInput.value;
@@ -62,11 +82,16 @@ function validateForm() {
   const repeatPasswordValid = validateRepeatPassword();
 
   // Enable button only if all valid
-  signupBtn.disabled = !(passwordValid && repeatPasswordValid);
+  signupBtn.disabled = !(usernameValid && passwordValid && repeatPasswordValid);
+
 }
 
 // Event listeners
-usernameInput.addEventListener("input", validateForm);
+usernameInput.addEventListener("input", () => {
+  validateUsername();
+  validateForm();
+});
+
 emailInput.addEventListener("input", validateForm);
 
 passwordInput.addEventListener("input", () => {
@@ -135,3 +160,11 @@ toggleRepeatPassword.addEventListener("click", () => {
   repeatPasswordInput.type = isPassword ? "text" : "password";
   toggleRepeatPassword.textContent = isPassword ? "🙈" : "👁️";
 });
+
+
+
+
+
+
+
+
