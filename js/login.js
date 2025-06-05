@@ -49,13 +49,14 @@ loginForm.addEventListener("submit", async (e) => {
 });
 
 const togglePassword = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("signupPassword");
+const passwordInput = document.getElementById("loginPassword");
 
 togglePassword.addEventListener("click", () => {
   const isPassword = passwordInput.type === "password";
   passwordInput.type = isPassword ? "text" : "password";
   togglePassword.textContent = isPassword ? "🙈" : "👁️";
 });
+
 
 // js/login.js
 
