@@ -9,47 +9,57 @@ let hasLoadedPins = false; // Track if pins have been loaded on first click
 
 // Function to load all pins
 async function loadPins() {
-  const res = await fetch(
-    "https://civicwatch-backend-v2.onrender.com/api/pins"
-  );
-  const pins = await res.json();
+  document.getElementById("loadingModal").style.display = "block"; // Show modal
 
-  allMarkers.forEach((marker) => map.removeLayer(marker));
-  allMarkers = [];
+  try {
+    const res = await fetch(
+      "https://civicwatch-backend-v2.onrender.com/api/pins"
+    );
+    const pins = await res.json();
 
-  const latLngs = [];
-  const currentUser = localStorage.getItem("username");
+    allMarkers.forEach((marker) => map.removeLayer(marker));
+    allMarkers = [];
 
-  pins.forEach((pin) => {
-    const iconUrl =
-      pin.username === currentUser
-        ? "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png"
-        : "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
+    const latLngs = [];
+    const currentUser = localStorage.getItem("username");
 
-    const icon = L.icon({ iconUrl, iconSize: [32, 32] });
+    pins.forEach((pin) => {
+      const iconUrl =
+        pin.username === currentUser
+          ? "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png"
+          : "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
 
-    const marker = L.marker([pin.lat, pin.lng], { icon }).addTo(map);
-    marker.bindPopup(`<strong>Reported by:</strong> ${pin.username}`);
-    marker._pinId = pin._id;
+      const icon = L.icon({ iconUrl, iconSize: [32, 32] });
 
-    if (currentUser === pin.username) {
-      marker.on("click", async () => {
-        if (confirm("Unpin this location?")) {
-          await deletePin(pin._id);
-          loadPins(); // Reload pins
-        }
-      });
+      const marker = L.marker([pin.lat, pin.lng], { icon }).addTo(map);
+      marker.bindPopup(`<strong>Reported by:</strong> ${pin.username}`);
+      marker._pinId = pin._id;
+
+      if (currentUser === pin.username) {
+        marker.on("click", async () => {
+          if (confirm("Unpin this location?")) {
+            await deletePin(pin._id);
+            loadPins(); // Reload pins
+          }
+        });
+      }
+
+      latLngs.push([pin.lat, pin.lng]);
+      allMarkers.push(marker);
+    });
+
+    if (latLngs.length > 0) {
+      const bounds = L.latLngBounds(latLngs);
+      map.fitBounds(bounds);
     }
-
-    latLngs.push([pin.lat, pin.lng]);
-    allMarkers.push(marker);
-  });
-
-  if (latLngs.length > 0) {
-    const bounds = L.latLngBounds(latLngs);
-    map.fitBounds(bounds);
+  } catch (err) {
+    alert("Failed to load pins");
+    console.error(err);
+  } finally {
+    document.getElementById("loadingModal").style.display = "none"; // Hide modal
   }
 }
+  
 
 // Function to delete a pin
 async function deletePin(id) {
