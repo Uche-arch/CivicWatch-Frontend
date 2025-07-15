@@ -9,7 +9,9 @@ let hasLoadedPins = false; // Track if pins have been loaded on first click
 
 // Function to load all pins
 async function loadPins() {
-  const res = await fetch("https://civicwatch-backend.onrender.com/api/pins");
+  const res = await fetch(
+    "https://civicwatch-backend-v2.onrender.com/api/pins"
+  );
   const pins = await res.json();
 
   allMarkers.forEach((marker) => map.removeLayer(marker));
@@ -58,7 +60,7 @@ async function deletePin(id) {
   }
 
   const res = await fetch(
-    `https://civicwatch-backend.onrender.com/api/pins/${id}`,
+    `https://civicwatch-backend-v2.onrender.com/api/pins/${id}`,
     {
       method: "DELETE",
       headers: {
@@ -90,17 +92,20 @@ map.on("click", async (e) => {
     return;
   }
 
-  const res = await fetch("https://civicwatch-backend.onrender.com/api/pins", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      lat: e.latlng.lat,
-      lng: e.latlng.lng,
-    }),
-  });
+  const res = await fetch(
+    "https://civicwatch-backend-v2.onrender.com/api/pins",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        lat: e.latlng.lat,
+        lng: e.latlng.lng,
+      }),
+    }
+  );
 
   if (res.ok) {
     loadPins();

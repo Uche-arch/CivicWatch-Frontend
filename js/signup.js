@@ -162,7 +162,7 @@ signupForm.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      "https://civicwatch-backend.onrender.com/api/auth/signup",
+      "https://civicwatch-backend-v2.onrender.com/api/auth/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

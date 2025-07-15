@@ -17,7 +17,7 @@ loginForm.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      "https://civicwatch-backend.onrender.com/api/auth/login",
+      "https://civicwatch-backend-v2.onrender.com/api/auth/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ document.getElementById("forgotForm").addEventListener("submit", async (e) => {
 
   try {
     const res = await fetch(
-      "https://civicwatch-backend.onrender.com/api/auth/forgot-password",
+      "https://civicwatch-backend-v2.onrender.com/api/auth/forgot-password",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

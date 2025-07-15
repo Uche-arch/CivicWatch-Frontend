@@ -87,7 +87,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const res = await fetch(
-      "https://civicwatch-backend.onrender.com/api/auth/reset-password",
+      "https://civicwatch-backend-v2.onrender.com/api/auth/reset-password",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

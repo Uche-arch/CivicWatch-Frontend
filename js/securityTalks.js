@@ -20,7 +20,7 @@ submitPost.onclick = async () => {
 
   try {
     const res = await fetch(
-      "https://civicwatch-backend.onrender.com/api/posts",
+      "https://civicwatch-backend-v2.onrender.com/api/posts",
       {
         method: "POST",
         headers: {
@@ -50,7 +50,9 @@ submitPost.onclick = async () => {
 
 // Function to load posts
 async function loadPosts() {
-  const res = await fetch("https://civicwatch-backend.onrender.com/api/posts");
+  const res = await fetch(
+    "https://civicwatch-backend-v2.onrender.com/api/posts"
+  );
   const posts = await res.json();
 
   postsList.innerHTML = "";

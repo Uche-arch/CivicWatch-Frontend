@@ -11,7 +11,7 @@ async function loadUserPosts() {
 
   try {
     const res = await fetch(
-      "https://civicwatch-backend.onrender.com/api/posts/my-posts",
+      "https://civicwatch-backend-v2.onrender.com/api/posts/my-posts",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ async function deletePost(postId) {
   const token = localStorage.getItem("token");
 
   const res = await fetch(
-    `https://civicwatch-backend.onrender.com/api/posts/${postId}`,
+    `https://civicwatch-backend-v2.onrender.com/api/posts/${postId}`,
     {
       method: "DELETE",
       headers: {
