@@ -9,6 +9,11 @@
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="shortcut icon" href="./img/favicon2.png" type="image/x-icon" />
   </head>
@@ -21,9 +26,9 @@
         <button id="signupBtn"><a href="signup.html">Sign Up</a></button>
 
         <div id="userMenu" class="user-menu">
-          <button id="userBtn" class="btn">Menu ▼</button>
+          <button id="userBtn" class="btn"></button>
           <div id="dropdown" class="dropdown hidden">
-            <a href="securityTalks.html">Security Talks</a>
+            <a href="securityTalks.html">The Watchtower</a>
             <a href="your-posts.html">Your Posts</a>
             <button id="logoutBtn">Logout</button>
           </div>
@@ -47,24 +52,37 @@
           color: white;
           font-size: 1.5rem;
           text-align: center;
-          padding-top: 20%;
+          padding-top: 50vh;
           font-family: sans-serif;
         "
       >
         Loading pins, please wait...
       </div>
     </main>
-    <footer><p>&copy; 2025 Phylax360. All rights reserved.</p></footer>
+    <footer>
+      <div class="guide-hint"><a href="guide.html"><i class="fa-solid fa-caret-right animated-caret"></i>Guide</a></div>
+      <p>&copy; 2025 Phylax360. All rights reserved.</p>
+    </footer>
 
     <!-- Instruction Modal For Users-->
     <div id="instructionModal" class="modal hidden">
       <div class="modal-content">
-        <h3>Welcome to Phylax360 👮‍♂️</h3>
+        <h3>Phylax360</h3>
         <p>
-          Phylax360 is your community’s safety companion. Track reported crime
-          hotspots, share security tips, and stay informed about local
-          incidents. Together, we can build a safer, more aware society.
+          Pin crime or insecure locations on the map so security agencies can
+          take action, making your community safer. Share safety tips and news
+          in the community feed.
         </p>
+        <p>
+          For full guidance, click the <strong>Guide</strong> link at the
+          bottom-left of your screen.
+        </p>
+
+        <!-- <p class="guide-hint">
+          For full guidance, click the
+          <i class="fa-solid fa-caret-right animated-caret"></i>
+          <strong>Guide</strong> link at the bottom-left of your screen.
+        </p> -->
 
         <p><b>To view hotspots, click on the map</b></p>
         <button id="closeInstructionModal">Got it!</button>
@@ -75,6 +93,6 @@
     <script src="js/map.js"></script>
     <script src="js/index.js"></script>
     <script src="./js/instructionModal.js"></script>
-    <script src="./js/hide.js"></script>
+    <!-- <script src="./js/hide.js"></script> -->
   </body>
 </html>

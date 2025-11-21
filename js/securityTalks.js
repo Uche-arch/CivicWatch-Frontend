@@ -6,6 +6,67 @@ const postingModal = document.getElementById("postingModal");
 
 writePostBtn.onclick = () => postForm.classList.toggle("hidden");
 
+
+// function formatTimeAgo(dateString) {
+//   const now = new Date();
+//   const postDate = new Date(dateString);
+//   let secondsAgo = Math.floor((now - postDate) / 1000);
+
+//   // Prevent negative values
+//   if (secondsAgo < 0) secondsAgo = 0;
+
+//   if (secondsAgo < 60)
+//     return `${secondsAgo} second${secondsAgo !== 1 ? "s" : ""} ago`;
+//   const minutes = Math.floor(secondsAgo / 60);
+//   if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+//   const hours = Math.floor(minutes / 60);
+//   if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+//   const days = Math.floor(hours / 24);
+//   return `${days} day${days !== 1 ? "s" : ""} ago`;
+// }
+
+function formatTimeAgo(dateString) {
+  const now = new Date();
+  const postDate = new Date(dateString);
+  let secondsAgo = Math.floor((now - postDate) / 1000);
+
+  // Prevent negative values (future timestamps)
+  if (secondsAgo < 0) secondsAgo = 0;
+
+  if (secondsAgo < 60) {
+    return secondsAgo === 0 ? "Just now" : `${secondsAgo}s ago`;
+  }
+
+  const minutes = Math.floor(secondsAgo / 60);
+  if (minutes < 60) {
+    return minutes === 1 ? "1 minute ago" : `${minutes} minutes ago`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) {
+    return hours === 1 ? "1 hour ago" : `${hours} hours ago`;
+  }
+
+  const days = Math.floor(hours / 24);
+  if (days < 7) {
+    return days === 1 ? "Yesterday" : `${days} days ago`;
+  }
+
+  const weeks = Math.floor(days / 7);
+  if (weeks < 4) {
+    return weeks === 1 ? "1 week ago" : `${weeks} weeks ago`;
+  }
+
+  const months = Math.floor(days / 30);
+  if (months < 12) {
+    return months === 1 ? "1 month ago" : `${months} months ago`;
+  }
+
+  const years = Math.floor(days / 365);
+  return years === 1 ? "1 year ago" : `${years} years ago`;
+}
+
+
 submitPost.onclick = async () => {
   const content = document.getElementById("postContent").value;
   const token = localStorage.getItem("token");
@@ -66,31 +127,31 @@ async function loadPosts() {
     const formattedContent = post.content.replace(/\n/g, "<br>");
     const formattedTime = formatTimeAgo(post.createdAt);
 
-
     postElement.innerHTML = `
-      <small style="opacity: 0.7">${formattedTime}</small>
-      <p>${formattedContent}</p>
-      <strong>_${post.username}</strong>
+      <small style="opacity: 0.7; font-size: 10px;">${formattedTime}</small>
+      <p style="font-size: 15px;">${formattedContent}</p>
+      <strong style="font-size: 13px; text-align: right; display: block;">_${post.username}</strong>
     `;
 
     postsList.appendChild(postElement);
   });
 }
 
-function formatTimeAgo(dateString) {
-  const now = new Date();
-  const postDate = new Date(dateString);
-  const secondsAgo = Math.floor((now - postDate) / 1000);
+// function formatTimeAgo(dateString) {
+//   const now = new Date();
+//   const postDate = new Date(dateString);
+//   const secondsAgo = Math.floor((now - postDate) / 1000);
 
-  if (secondsAgo < 60)
-    return `${secondsAgo} second${secondsAgo !== 1 ? "s" : ""} ago`;
-  const minutes = Math.floor(secondsAgo / 60);
-  if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
-  const days = Math.floor(hours / 24);
-  return `${days} day${days !== 1 ? "s" : ""} ago`;
-}
+//   if (secondsAgo < 60)
+//     return `${secondsAgo} second${secondsAgo !== 1 ? "s" : ""} ago`;
+//   const minutes = Math.floor(secondsAgo / 60);
+//   if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+//   const hours = Math.floor(minutes / 60);
+//   if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+//   const days = Math.floor(hours / 24);
+//   return `${days} day${days !== 1 ? "s" : ""} ago`;
+// }
+
 
 // Update UI when page loads
 window.onload = () => {

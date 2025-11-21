@@ -40,7 +40,7 @@ async function loadUserPosts() {
       const formattedTime = formatTimeAgo(post.createdAt);
 
       postElement.innerHTML = `
-          <p><strong>${post.username}</strong>: ${formattedContent}</p>
+          <p>${formattedContent}</p>
           <button onclick="deletePost('${post._id}')">Delete</button>
       <small style="opacity: 0.7">${formattedTime}</small>
 
@@ -54,31 +54,82 @@ async function loadUserPosts() {
   }
 }
 
+// async function deletePost(postId) {
+//   const token = localStorage.getItem("token");
+
+//   const res = await fetch(
+//     `https://civicwatch-backend-v2.onrender.com/api/posts/${postId}`,
+//     {
+//       method: "DELETE",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     }
+//   );
+
+//   const data = await res.json();
+//   if (res.ok) {
+//     const modal = document.getElementById("successModal");
+//     modal.style.display = "block";
+//     setTimeout(() => {
+//       modal.style.display = "none";
+//       loadUserPosts(); // Reload the list of posts
+//     }, 3000);
+//   } else {
+//     alert(data.msg);
+//   }
+// }
+
+
 async function deletePost(postId) {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(
-    `https://civicwatch-backend-v2.onrender.com/api/posts/${postId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+  // Find the button for this post and change its text
+  const btn = document.querySelector(
+    `button[onclick="deletePost('${postId}')"]`
   );
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Deleting...";
+  }
 
-  const data = await res.json();
-  if (res.ok) {
-    const modal = document.getElementById("successModal");
-    modal.style.display = "block";
-    setTimeout(() => {
-      modal.style.display = "none";
-      loadUserPosts(); // Reload the list of posts
-    }, 3000);
-  } else {
-    alert(data.msg);
+  try {
+    const res = await fetch(
+      `https://civicwatch-backend-v2.onrender.com/api/posts/${postId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (res.ok) {
+      const modal = document.getElementById("successModal");
+      modal.style.display = "block";
+      setTimeout(() => {
+        modal.style.display = "none";
+        loadUserPosts(); // Reload posts after deletion
+      }, 2000);
+    } else {
+      alert(data.msg || "Failed to delete post.");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Delete";
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong.");
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Delete";
+    }
   }
 }
+
 
 function formatTimeAgo(dateString) {
   const now = new Date();

@@ -149,6 +149,51 @@ repeatPasswordInput.addEventListener("input", () => {
 });
 
 
+// signupForm.addEventListener("submit", async (e) => {
+//   e.preventDefault();
+
+//   signupError.style.display = "none";
+
+//   const username = usernameInput.value.trim();
+//   const email = emailInput.value.trim();
+//   const password = passwordInput.value.trim();
+
+//   console.log("Submitting form...");  
+
+//   try {
+//     const response = await fetch(
+//       "https://civicwatch-backend-v2.onrender.com/api/auth/signup",
+//       {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ username, email, password }),
+//       }
+//     );
+
+//     const data = await response.json();
+
+//     if (response.ok) {
+//       signupError.style.display = "none";
+
+//       const modal = document.getElementById("successModal");
+//       modal.style.display = "block";
+
+//       setTimeout(() => {
+//         modal.style.display = "none";
+//         window.location.href = "login.html";
+//       }, 3000);
+//     } else {
+//       signupError.textContent = data.msg || "Signup failed.";
+//       signupError.style.display = "block";
+//     }
+//   } catch (error) {
+//     signupError.textContent = "Something went wrong. Please try again.";
+//     signupError.style.display = "block";
+//     console.error(error);
+//   }
+// });
+
+
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -158,7 +203,12 @@ signupForm.addEventListener("submit", async (e) => {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
 
-  console.log("Submitting form...");  
+  console.log("Submitting form...");
+
+  // Store original button text
+  const originalText = signupBtn.textContent;
+  signupBtn.textContent = "Loading...";
+  signupBtn.disabled = true; // disable while loading
 
   try {
     const response = await fetch(
@@ -185,27 +235,55 @@ signupForm.addEventListener("submit", async (e) => {
     } else {
       signupError.textContent = data.msg || "Signup failed.";
       signupError.style.display = "block";
+
+      // Reset button
+      signupBtn.textContent = originalText;
+      signupBtn.disabled = false;
     }
   } catch (error) {
     signupError.textContent = "Something went wrong. Please try again.";
     signupError.style.display = "block";
     console.error(error);
+
+    // Reset button
+    signupBtn.textContent = originalText;
+    signupBtn.disabled = false;
   }
 });
+
+
+// togglePassword.addEventListener("click", () => {
+//   const isPassword = passwordInput.type === "password";
+//   passwordInput.type = isPassword ? "text" : "password";
+//   togglePassword.textContent = isPassword ? "🙈" : "👁️";
+// });
+
+// const toggleRepeatPassword = document.getElementById("toggleRepeatPassword");
+
+// toggleRepeatPassword.addEventListener("click", () => {
+//   const isPassword = repeatPasswordInput.type === "password";
+//   repeatPasswordInput.type = isPassword ? "text" : "password";
+//   toggleRepeatPassword.textContent = isPassword ? "🙈" : "👁️";
+// });
 
 togglePassword.addEventListener("click", () => {
   const isPassword = passwordInput.type === "password";
   passwordInput.type = isPassword ? "text" : "password";
-  togglePassword.textContent = isPassword ? "🙈" : "👁️";
-});
 
-const toggleRepeatPassword = document.getElementById("toggleRepeatPassword");
+  const icon = togglePassword.querySelector("i");
+  icon.classList.toggle("fa-eye");
+  icon.classList.toggle("fa-eye-slash");
+});
 
 toggleRepeatPassword.addEventListener("click", () => {
   const isPassword = repeatPasswordInput.type === "password";
   repeatPasswordInput.type = isPassword ? "text" : "password";
-  toggleRepeatPassword.textContent = isPassword ? "🙈" : "👁️";
+
+  const icon = toggleRepeatPassword.querySelector("i");
+  icon.classList.toggle("fa-eye");
+  icon.classList.toggle("fa-eye-slash");
 });
+
 
 
 

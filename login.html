@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="shortcut icon" href="./img/favicon2.png" type="image/x-icon">
-  <link rel="stylesheet" href="./css/login.css" />
-  <title>Phylax360 | Login</title>
-</head>
-<body>
-  <h2>Login</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="./img/favicon2.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
-  <!-- Login Form -->
-  <form id="loginForm">
-    <input type="text" id="loginUsername" placeholder="Username" required />
-    <div class="password-wrapper">
-      <input
-        type="password"
-        id="loginPassword"
-        placeholder="Password"
-        required
-      />
-      <span id="togglePassword" class="toggle-icon">👁️</span>
-    </div>
-    <button type="submit">Login</button>
-     <!-- Error message placeholder -->
-  <p id="loginError" style="color: red; margin-top: 8px; display: none;"></p>
-  </form>
+    <title>Phylax360 | Login</title>
+  </head>
+  <body>
+    <h2>Login</h2>
 
-  <p><a href="#" id="toggleForgot">Forgot Password?</a></p>
-  <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+    <!-- Login Form -->
+    <form id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Username" required />
+      <div class="password-wrapper">
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          required
+        />
+        <span id="togglePassword" class="toggle-icon">
+          <i class="fa-solid fa-eye"></i>
+        </span>
+      </div>
 
-  <!-- Modal Overlay + Forgot Password Modal -->
-  <div id="modalOverlay" class="hidden"></div>
-
-  <div id="forgotModal" class="modal hidden">
-    <button id="closeModal" title="Close modal">&times;</button>
-    <h3>Reset Password</h3>
-    <form id="forgotForm">
-      <input type="text" id="forgotUsername" placeholder="Username" required />
-      <input type="email" id="forgotEmail" placeholder="Email" required />
-      <button type="submit">Send Reset Link</button>
-      <p id="forgotMessage"></p>
+      <button type="submit">Login</button>
+      <!-- Error message placeholder -->
+      <p id="loginError" style="color: red; margin-top: 8px; display: none"></p>
     </form>
-  </div>
 
-  <script src="js/modal.js"></script>
-  <script src="js/login.js"></script>
-</body>
+    <p><a href="#" id="toggleForgot">Forgot Password?</a></p>
+    <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+
+    <!-- Modal Overlay + Forgot Password Modal -->
+    <div id="modalOverlay" class="hidden"></div>
+
+    <div id="forgotModal" class="modal hidden">
+      <button id="closeModal" title="Close modal">&times;</button>
+      <h3>Reset Password</h3>
+      <form id="forgotForm">
+        <input
+          type="text"
+          id="forgotUsername"
+          placeholder="Username"
+          required
+        />
+        <input type="email" id="forgotEmail" placeholder="Email" required />
+        <button type="submit">Send Reset Link</button>
+        <p id="forgotMessage"></p>
+      </form>
+    </div>
+
+    <script src="js/modal.js"></script>
+    <script src="js/login.js"></script>
+  </body>
 </html>

@@ -4,14 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/signup.css" />
-    <link rel="shortcut icon" href="./img/favicon2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/favicon2.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
     <title>Phylax360 | Sign Up</title>
   </head>
   <body>
     <!-- Success Modal -->
     <div id="successModal" class="modal">
       <div class="modal-content">
-        <p>✅ Signup successful! You can now log in.</p>
+        <p>Success! Your Phylax360 account has been created. Please log in.</p>
       </div>
     </div>
 
@@ -19,8 +24,18 @@
     <form id="signupForm">
       <input type="text" id="signupUsername" placeholder="Username" required />
       <div id="usernameError" style="color: red; display: none"></div>
-      
+
       <input type="email" id="signupEmail" placeholder="Email" required />
+
+      <!-- <div class="password-wrapper">
+        <input
+          type="password"
+          id="signupPassword"
+          placeholder="Password"
+          required
+        />
+        <span id="togglePassword" class="toggle-icon">👁️</span>
+      </div> -->
 
       <div class="password-wrapper">
         <input
@@ -29,13 +44,25 @@
           placeholder="Password"
           required
         />
-        <span id="togglePassword" class="toggle-icon">👁️</span>
+        <span id="togglePassword" class="toggle-icon">
+          <i class="fa-solid fa-eye"></i>
+        </span>
       </div>
       <!-- Add this line: -->
       <p
         id="passwordError"
         style="color: red; margin-top: 4px; display: none"
       ></p>
+
+      <!-- <div class="password-wrapper">
+        <input
+          type="password"
+          id="signupRepeatPassword"
+          placeholder="Repeat Password"
+          required
+        />
+        <span id="toggleRepeatPassword" class="toggle-icon">👁️</span>
+      </div> -->
 
       <div class="password-wrapper">
         <input
@@ -44,7 +71,9 @@
           placeholder="Repeat Password"
           required
         />
-        <span id="toggleRepeatPassword" class="toggle-icon">👁️</span>
+        <span id="toggleRepeatPassword" class="toggle-icon">
+          <i class="fa-solid fa-eye"></i>
+        </span>
       </div>
 
       <!-- Repeat password error message -->
@@ -69,7 +98,7 @@
       ></p>
     </form>
 
-    <p>Already have an account? <a href="login.html">Login here</a></p>
+    <p>Already have an account? <a href="login.html">Login</a></p>
 
     <script src="js/signup.js"></script>
   </body>

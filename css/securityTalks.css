@@ -22,19 +22,20 @@ h6 {
 }
 
 #securityTalks {
-  max-width: 800px;
+  max-width: 900px;
   margin: 1rem auto;
   padding: 1rem;
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
 #securityTalks h2 {
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 2rem;
+  margin-bottom: .8rem;
+  font-size: 1.8rem;
   color: #333;
+  font-weight: 600;
 }
 
 /* Write Post Button */
@@ -42,13 +43,15 @@ h6 {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1.1rem;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
   display: block;
   margin: 0 auto 1.5rem auto;
   transition: background-color 0.3s ease;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
 }
 
 #writePostBtn:hover {
@@ -69,6 +72,7 @@ h6 {
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 10px;
+  
   resize: vertical;
   font-size: 1rem;
   font-family: inherit;
@@ -85,6 +89,8 @@ h6 {
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: "Inter", sans-serif;
+
 }
 
 #submitPost:hover {
@@ -95,19 +101,21 @@ h6 {
 #postsList {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .post {
   background-color: #f9f9f9;
-  padding: 1.2rem 1rem;
+  padding: .8rem .8rem;
   border-radius: 10px;
-  border-left: 4px solid #007bff;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left: 2px solid #007bff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .post p {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.1rem;
   color: #333;
   font-size: 1rem;
   line-height: 1.6;
