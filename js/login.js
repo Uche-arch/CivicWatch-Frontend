@@ -96,7 +96,7 @@ loginForm.addEventListener("submit", async (e) => {
       // Redirect to home page
       window.location.href = "index.html";
     } else {
-      loginError.textContent = "Invalid credentials";
+      loginError.textContent = "Incorrect username or password.";
       loginError.style.display = "block";
 
       // Reset button
