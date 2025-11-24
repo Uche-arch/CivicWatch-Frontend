@@ -130,7 +130,7 @@ async function loadPosts() {
     postElement.innerHTML = `
       <small style="opacity: 0.7; font-size: 10px;">${formattedTime}</small>
       <p style="font-size: 15px;">${formattedContent}</p>
-      <strong style="font-size: 13px; text-align: right; display: block;">_${post.username}</strong>
+      <strong style="font-size: 13px; text-align: right; display: block;">- ${post.username}</strong>
     `;
 
     postsList.appendChild(postElement);
